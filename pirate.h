@@ -2,7 +2,7 @@
 #define PIRATE_H
 
 #include <memory>
-#include "fleat.h"
+#include "fleet.h"
 
 using namespace std;
 class Pirate
@@ -13,17 +13,18 @@ public:
 
     void setPirateMoney(int pirate_money);
     void setPirateRank(int pirate_rank);
+    void setPirateFleet(shared_ptr<Fleet> pirate_fleet);
 
     int getPirateId() const;
     int getPirateMoney() const;
     int getPirateRank() const;
-    shared_ptr<Fleat> getPirateFleat() const;
+    shared_ptr<Fleet> getPirateFleet() const;
 
 private:
     int pirate_id;
     int pirate_money;
     int pirate_rank;
-    shared_ptr<Fleat> pirate_fleat;
+    shared_ptr<Fleet> pirate_fleet;
 };
 
 #endif // PIRATE_H

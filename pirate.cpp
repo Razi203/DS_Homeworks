@@ -2,7 +2,7 @@
 #include "pirate.h"
 #include "consts.h"
 
-Pirate::Pirate(int pirate_id) : pirate_id(pirate_id), pirate_money(ZERO), pirate_rank(ZERO), pirate_fleat(nullptr) {}
+Pirate::Pirate(int pirate_id) : pirate_id(pirate_id), pirate_money(ZERO), pirate_rank(ZERO), pirate_fleet(nullptr) {}
 
 // Setters -----------------------------------------------------
 void Pirate::setPirateMoney(int pirate_money)
@@ -13,6 +13,11 @@ void Pirate::setPirateMoney(int pirate_money)
 void Pirate::setPirateRank(int pirate_rank)
 {
     pirate_rank = pirate_rank;
+}
+
+void Pirate::setPirateFleet(shared_ptr<Fleet> pirate_fleet)
+{
+    pirate_fleet = pirate_fleet;
 }
 
 // Getters -----------------------------------------------------
@@ -31,7 +36,7 @@ int Pirate::getPirateRank() const
     return pirate_rank;
 }
 
-shared_ptr<Fleat> Pirate::getPirateFleat() const
+shared_ptr<Fleet> Pirate::getPirateFleet() const
 {
-    return pirate_fleat;
+    return pirate_fleet;
 }
