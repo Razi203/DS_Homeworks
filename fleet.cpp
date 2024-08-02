@@ -8,8 +8,6 @@ using namespace std;
 Fleet::Fleet(int fleet_id) : fleet_id(fleet_id), rank_modifier(ZERO),
                              pirates_num(ZERO), ships_num(ONE), fleet_father(nullptr), accessable(true) {}
 
-Fleet::~Fleet() {}
-
 shared_ptr<Fleet> Fleet::getHead(shared_ptr<Fleet> &fleet)
 {
     if (fleet->getFleetFather() == nullptr)
@@ -58,6 +56,11 @@ void Fleet::setFleetFather(shared_ptr<Fleet> fleet_father)
     fleet_father = fleet_father;
 }
 
+void Fleet::setAccessable(bool accessable)
+{
+    accessable = accessable;
+}
+
 // Getters -----------------------------------------------------
 
 int Fleet::getFleetId() const
@@ -83,4 +86,9 @@ shared_ptr<Fleet> Fleet::getFleetFather() const
 bool Fleet::isAccessable() const
 {
     return accessable;
+}
+
+int Fleet::getShipsNum() const
+{
+    return ships_num;
 }

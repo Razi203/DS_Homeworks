@@ -32,8 +32,8 @@ private:
     int rank_modifier;
     int pirates_num;
     int ships_num;
-    bool accessable;
     shared_ptr<Fleet> fleet_father;
+    bool accessable;
 };
 
 #endif // FLEET_H

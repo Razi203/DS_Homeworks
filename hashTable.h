@@ -3,7 +3,7 @@
 
 #include <memory>
 #include "consts.h"
-using std::shared_ptr;
+using namespace std;
 
 /**
  * HashNode class
@@ -19,7 +19,7 @@ class HashNode
 public:
     HashNode(int key) : id(key)
     {
-        value = shared_ptr<T>(key);
+        value = make_shared<T>(key);
         next = nullptr;
     }
 
@@ -73,12 +73,12 @@ public:
 
     ~HashTable();
 
-    shared_ptr<T> &insert(int key);
+    shared_ptr<T> insert(int key);
 
-    shared_ptr<T> &get(int key) const;
+    shared_ptr<T> get(int key) const;
 
 private:
-    int hash(int key);
+    int hash(int key) const;
     void sizeUp();
     bool tooBig() const;
     void add_aux(shared_ptr<HashNode<T>> node);
@@ -91,7 +91,7 @@ private:
 template <typename T>
 HashTable<T>::HashTable() : table_size(INITIAL_TABLE_SIZE), size(ZERO)
 {
-    table = new shared_prt<HashNode<T>>[table_size];
+    table = new shared_ptr<HashNode<T>>[table_size];
     for (int i = 0; i < table_size; i++)
     {
         table[i] = nullptr;
@@ -105,13 +105,13 @@ HashTable<T>::~HashTable()
 }
 
 template <typename T>
-int HashTable<T>::hash(int key)
+int HashTable<T>::hash(int key) const
 {
     return key % table_size;
 }
 
 template <typename T>
-shared_ptr<T> &HashTable<T>::get(int key) const
+shared_ptr<T> HashTable<T>::get(int key) const
 {
     int index = hash(key);
     shared_ptr<HashNode<T>> node = table[index];
@@ -133,16 +133,16 @@ bool HashTable<T>::tooBig() const
 }
 
 template <typename T>
-shared_ptr<T> &HashTable<T>::insert(int key)
+shared_ptr<T> HashTable<T>::insert(int key)
 {
     int index = hash(key);
     shared_ptr<HashNode<T>> node = table[index];
     if (node == nullptr)
     {
-        auto node = shared_ptr<HashNode<T>>(key);
+        auto node = make_shared<HashNode<T>>(key);
         table[index] = node;
         size++;
-        sizeUp;
+        sizeUp();
         return node->getValue();
     }
 
@@ -156,7 +156,7 @@ shared_ptr<T> &HashTable<T>::insert(int key)
         return nullptr;
     }
 
-    auto newNode = shared_ptr<HashNode<T>>(key);
+    auto newNode = make_shared<HashNode<T>>(key);
     node->setNext(newNode);
 
     size++;

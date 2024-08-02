@@ -9,7 +9,7 @@ class Pirate
 {
 public:
     Pirate(int pirate_id);
-    ~Pirate();
+    ~Pirate() = default;
 
     void setPirateMoney(int pirate_money);
     void setPirateRank(int pirate_rank);
