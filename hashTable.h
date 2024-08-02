@@ -5,6 +5,14 @@
 #include "consts.h"
 using std::shared_ptr;
 
+/**
+ * HashNode class
+ * The class represents a node in the hash table with its data.
+ * Class fields:
+ * - id: the id of the pirate/fleet of the node.
+ * - value: the pirate or fleet of the node.
+ * - next: the next node in the linked list in the Hash Table.
+ */
 template <typename T>
 class HashNode
 {
@@ -41,6 +49,22 @@ private:
     shared_ptr<HashNode<T>> next;
 };
 
+/**
+ * HashTable class
+ * The class is a generic hash table with dynamic size and no removing of elements.
+ * Class fields:
+ * - table_size: the maximum size of the table as of that moment.
+ * - size: the current number of elements in the hash table.
+ * - table: the dynamic array of the hash table.
+ *
+ * Class methods:
+ * - insert - inserts a new element to the hash table using it's id.
+ *            return value:
+ *             - nullptr if the element is already in the hash table.
+ *             - (otherwise if it was inserted) the element.
+ * - get - returns the element in the hash table with the given id or nullptr if it doesn't exist.
+ *
+ */
 template <typename T>
 class HashTable
 {
@@ -53,14 +77,11 @@ public:
 
     shared_ptr<T> &get(int key) const;
 
-    int getSize() const;
-
-    void sizeUp();
-
-    bool tooBig() const;
-
 private:
     int hash(int key);
+    void sizeUp();
+    bool tooBig() const;
+    void add_aux(shared_ptr<HashNode<T>> node);
 
     int table_size;
     int size;
@@ -87,12 +108,6 @@ template <typename T>
 int HashTable<T>::hash(int key)
 {
     return key % table_size;
-}
-
-template <typename T>
-int HashTable<T>::getSize() const
-{
-    return size;
 }
 
 template <typename T>
@@ -127,10 +142,7 @@ shared_ptr<T> &HashTable<T>::insert(int key)
         auto node = shared_ptr<HashNode<T>>(key);
         table[index] = node;
         size++;
-        if (tooBig())
-        {
-            sizeUp();
-        }
+        sizeUp;
         return node->getValue();
     }
 
@@ -146,17 +158,20 @@ shared_ptr<T> &HashTable<T>::insert(int key)
 
     auto newNode = shared_ptr<HashNode<T>>(key);
     node->setNext(newNode);
+
     size++;
-    if (tooBig())
-    {
-        sizeUp();
-    }
+    sizeUp();
+
     return newNode->getValue();
 }
 
 template <typename T>
 void HashTable<T>::sizeUp()
 {
+    if (!tooBig())
+    {
+        return;
+    }
     int old_size = table_size;
     table_size *= SIZING_FACTOR;
 
@@ -174,13 +189,31 @@ void HashTable<T>::sizeUp()
         while (node != nullptr)
         {
             shared_ptr<HashNode<T>> next = node->getNext();
-            int index = hash(node->getId());
-            node->setNext(table[index]);
-            table[index] = node;
+            add_aux(node);
             node = next;
         }
     }
 
     delete[] old_table;
+}
+
+template <typename T>
+void HashTable<T>::add_aux(shared_ptr<HashNode<T>> node)
+{
+    node->setNext(nullptr);
+    int index = hash(node->getId());
+    shared_ptr<HashNode<T>> current = table[index];
+    if (current == nullptr)
+    {
+        table[index] = node;
+    }
+    else
+    {
+        while (current->getNext() != nullptr)
+        {
+            current = current->getNext();
+        }
+        current->setNext(node);
+    }
 }
 #endif // HASHTABLE_H
