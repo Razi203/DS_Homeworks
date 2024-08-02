@@ -129,6 +129,11 @@ StatusType oceans_t::unite_fleets(int fleetId1, int fleetId2)
 
 StatusType oceans_t::pirate_argument(int pirateId1, int pirateId2)
 {
-	// TODO: Your code goes here
-	return StatusType::SUCCESS;
+	if (pirateId1 <= ZERO || pirateId2 <= ZERO || pirateId1 == pirateId2)
+	{
+		return StatusType::INVALID_INPUT;
+	}
+
+	auto pirate1 = pirates.get(pirateId1);
+	auto pirate2 = pirates.get(pirateId2);
 }

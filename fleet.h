@@ -8,8 +8,11 @@ class Fleet
 {
 public:
     Fleet(int fleet_id);
-    ~Fleet();
+    ~Fleet() = default;
 
+    shared_ptr<Fleet> getHead(shared_ptr<Fleet> &fleet);
+
+    // getters
     int getFleetId() const;
     int getRankModifier() const;
     int getPiratesNum() const;
@@ -17,6 +20,7 @@ public:
     bool isAccessable() const;
     shared_ptr<Fleet> getFleetFather() const;
 
+    // setters
     void setRankModifier(int rank_modifier);
     void setPiratesNum(int pirates_num);
     void setShipsNum(int ships_num);

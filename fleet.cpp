@@ -5,7 +5,36 @@
 
 using namespace std;
 
-Fleet::Fleet(int fleet_id) : fleet_id(fleet_id), rank_modifier(ZERO), pirates_num(ZERO), ships_num(ONE), fleet_father(nullptr), accessable(true) {}
+Fleet::Fleet(int fleet_id) : fleet_id(fleet_id), rank_modifier(ZERO),
+                             pirates_num(ZERO), ships_num(ONE), fleet_father(nullptr), accessable(true) {}
+
+Fleet::~Fleet() {}
+
+shared_ptr<Fleet> Fleet::getHead(shared_ptr<Fleet> &fleet)
+{
+    if (fleet->getFleetFather() == nullptr)
+    {
+        return fleet;
+    }
+    auto head = fleet->getFleetFather();
+    int rank_sum = fleet->getRankModifier();
+    while (head->getFleetFather() != nullptr)
+    {
+        rank_sum += head->getRankModifier();
+        head = head->getFleetFather();
+    }
+
+    while (fleet->getFleetFather() != head)
+    {
+        auto temp = fleet->getFleetFather();
+        fleet->setFleetFather(head);
+        rank_sum -= fleet->getRankModifier();
+        fleet->setRankModifier(fleet->getRankModifier() + rank_sum);
+        fleet = temp;
+    }
+
+    return head;
+}
 
 // Setters -----------------------------------------------------
 
