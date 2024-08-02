@@ -1,4 +1,5 @@
 #include "pirates24b2.h"
+#include <iostream>
 
 // helper functions declarations
 void static updateFleetsData(shared_ptr<Fleet> &fleet1, shared_ptr<Fleet> &fleet2);
@@ -30,7 +31,7 @@ StatusType oceans_t::add_fleet(int fleetId)
 		return StatusType::ALLOCATION_ERROR;
 	}
 
-	if (current_fleet != nullptr)
+	if (current_fleet == nullptr)
 	{
 		return StatusType::FAILURE;
 	}
@@ -62,7 +63,7 @@ StatusType oceans_t::add_pirate(int pirateId, int fleetId)
 		return StatusType::ALLOCATION_ERROR;
 	}
 
-	if (current_pirate != nullptr)
+	if (current_pirate == nullptr)
 	{
 		return StatusType::FAILURE;
 	}
@@ -240,6 +241,9 @@ void static payUp(shared_ptr<Pirate> &pirate1, shared_ptr<Pirate> &pirate2,
 	int rank2 = pirate2->getPirateRank() + fleet2->getRankModifier();
 	if (fleet2 != head2)
 		rank2 += head2->getRankModifier();
+
+	std::cout << "pirate " << pirate1->getPirateId() << " rank " << rank1 << std::endl;
+	std::cout << "pirate " << pirate2->getPirateId() << " rank " << rank2 << std::endl;
 
 	if (rank1 < rank2)
 	{

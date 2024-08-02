@@ -19,13 +19,30 @@ class Fleet:
         self.ship_count = 1
         self.id = id
         self.pirates = []
+        self.live = True
+    
+    @property
+    def id(self):
+        return self.id
+    
+
+    def id(self, id):
+        self.id = id
+
+
+class Pirate:
+    def __init__(self, id):
+        self.id = id
+        self.money = 0
+        self.fleetId = 0
+        self.rank = 0
 
 
 class Ocean:
     def __init__(self):
         self.fleets = []
         self.fleet_ids = []
-        self.pirates = []
+        self.pirate_ids = []
 
     def add_fleet(self, id):
         if id <= 0:
@@ -38,12 +55,8 @@ class Ocean:
     def add_pirate(self, pirateId, fleetId):
         if pirateId <= 0 or fleetId <= 0:
             return StatusType.INVALID_INPUT
-
-
-# Example usage:
-fleet = Fleet("My Fleet")
-fleet.add_vehicle("Car")
-fleet.add_vehicle("Truck")
-print(fleet.list_vehicles())  # Output: ['Car', 'Truck']
-fleet.remove_vehicle("Car")
-print(fleet.list_vehicles())  # Output: ['Truck']
+        if pirateId in self.pirate_ids or fleetId not in self.fleet_ids:
+            return StatusType.FAILURE
+        for fleet in self.fleets:
+            if fleet.id == fleetId:
+                if 

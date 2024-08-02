@@ -38,27 +38,27 @@ shared_ptr<Fleet> Fleet::getHead(shared_ptr<Fleet> &fleet)
 
 void Fleet::setRankModifier(int rank_modifier)
 {
-    rank_modifier = rank_modifier;
+    this->rank_modifier = rank_modifier;
 }
 
 void Fleet::setPiratesNum(int pirates_num)
 {
-    pirates_num = pirates_num;
+    this->pirates_num = pirates_num;
 }
 
 void Fleet::setShipsNum(int ships_num)
 {
-    ships_num = ships_num;
+    this->ships_num = ships_num;
 }
 
 void Fleet::setFleetFather(shared_ptr<Fleet> fleet_father)
 {
-    fleet_father = fleet_father;
+    this->fleet_father = fleet_father;
 }
 
 void Fleet::setAccessable(bool accessable)
 {
-    accessable = accessable;
+    this->accessable = accessable;
 }
 
 // Getters -----------------------------------------------------

@@ -7,17 +7,17 @@ Pirate::Pirate(int pirate_id) : pirate_id(pirate_id), pirate_money(ZERO), pirate
 // Setters -----------------------------------------------------
 void Pirate::setPirateMoney(int pirate_money)
 {
-    pirate_money = pirate_money;
+    this->pirate_money = pirate_money;
 }
 
 void Pirate::setPirateRank(int pirate_rank)
 {
-    pirate_rank = pirate_rank;
+    this->pirate_rank = pirate_rank;
 }
 
 void Pirate::setPirateFleet(shared_ptr<Fleet> pirate_fleet)
 {
-    pirate_fleet = pirate_fleet;
+    this->pirate_fleet = pirate_fleet;
 }
 
 // Getters -----------------------------------------------------
