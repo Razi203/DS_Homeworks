@@ -21,13 +21,7 @@ class Fleet:
         self.pirates = []
         self.live = True
     
-    @property
-    def id(self):
-        return self.id
     
-
-    def id(self, id):
-        self.id = id
 
 
 class Pirate:
