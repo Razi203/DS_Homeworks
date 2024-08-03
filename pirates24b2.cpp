@@ -139,7 +139,7 @@ StatusType oceans_t::unite_fleets(int fleetId1, int fleetId2)
 	}
 	shared_ptr<Fleet> fleet1 = fleets.get(fleetId1);
 	shared_ptr<Fleet> fleet2 = fleets.get(fleetId2);
-	if (fleet1 == nullptr || fleet2 == nullptr || !fleet1->isAccessable() || !fleet2->isAccessable())
+	if (fleet1 == nullptr || fleet2 == nullptr || !fleet1->isAccessable() || !fleet2->isAccessable() || fleet1->getHead(fleet1)->getPiratesNum() == ZERO || fleet2->getHead(fleet2)->getPiratesNum() == ZERO)
 	{
 		return StatusType::FAILURE;
 	}
