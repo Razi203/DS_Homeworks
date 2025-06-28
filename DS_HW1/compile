@@ -1,0 +1,5 @@
+g++ -std=c++11 -DNDEBUG -Wall *.cpp
+
+valgrind ./a.out < tests/test1.in > tests/my.out
+
+diff tests/my.out tests/test1.out
